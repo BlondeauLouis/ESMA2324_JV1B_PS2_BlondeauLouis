@@ -1,14 +1,26 @@
 using UnityEngine;
 
-public class PlayerInteraction : MonoBehaviour
+public class Taguer : MonoBehaviour
 {
-    private bool isTouchingWall = false; // Indique si le personnage touche un mur
+    private bool isTouchingWall = false;
+    private PlayerController playerController;
 
+    private void Start()
+    {
+        playerController = GetComponent<PlayerController>();
+    }
     void Update()
     {
-        if (Input.GetKey(KeyCode.E) && isTouchingWall)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            InteractWithWall();
+            if (isTouchingWall)
+            {
+                InteractWithWall();
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            playerController.isInvisible = false;
         }
     }
 
@@ -25,11 +37,12 @@ public class PlayerInteraction : MonoBehaviour
         if (other.CompareTag("Wall"))
         {
             isTouchingWall = false;
+            playerController.isInvisible = false;
         }
     }
 
     void InteractWithWall()
     {
-        Debug.Log("Interacting with the wall!");
+        playerController.isInvisible = true;
     }
 }

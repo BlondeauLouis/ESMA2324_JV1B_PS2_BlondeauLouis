@@ -6,7 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public float jump;
+
     private Rigidbody2D rb;
+    private SpriteRenderer SpriteRenderer;
 
     private bool isGrounded;
     public bool isInvisible;
@@ -16,6 +18,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -29,6 +32,15 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = new Vector2(rb.velocity.x, jump);
+        }
+
+        if (isInvisible)
+        {
+            SpriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
+        }
+        else
+        {
+            SpriteRenderer.color = new Color(1f, 1f, 1f, 1f);
         }
     }
 
@@ -48,4 +60,5 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
     }
+
 }
