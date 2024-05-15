@@ -5,18 +5,14 @@ using UnityEngine;
 public class Ennemi : MonoBehaviour
 {
     public bool toleft = true;
-
-
-
     public float speed;
-
-
-
     public Rigidbody2D rgbd;
+
+    private PlayerController playerController;
     // Start is called before the first frame update
     void Start()
     {
-
+        playerController = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -33,6 +29,11 @@ public class Ennemi : MonoBehaviour
         {
 
             rgbd.velocity = new Vector2(speed, rgbd.velocity.y);
+
+        if (playerController.isInvisible)
+            {
+                rgbd.isKinematic = true;
+            }
 
         }
     }

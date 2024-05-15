@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 211102275}
   m_Layer: 0
   m_Name: Perso
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,6 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   jump: 20
+  health: 3
   isInvisible: 0
   sp: {fileID: 0}
 --- !u!50 &211102271
@@ -1033,7 +1034,7 @@ GameObject:
   - component: {fileID: 1515801577}
   m_Layer: 0
   m_Name: Flic
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1192,6 +1193,7 @@ MonoBehaviour:
   toleft: 1
   speed: 8
   rgbd: {fileID: 1515801575}
+  player: {fileID: 211102269}
 --- !u!1 &1577396306
 GameObject:
   m_ObjectHideFlags: 0

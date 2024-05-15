@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public float jump;
+    public float health;
 
     private Rigidbody2D rb;
     private SpriteRenderer SpriteRenderer;
