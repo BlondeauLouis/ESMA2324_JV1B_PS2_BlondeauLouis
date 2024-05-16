@@ -31,11 +31,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        Vector3 direction = new Vector2(moveHorizontal, 0);
-        transform.Translate(direction * speed * Time.deltaTime);
+        if (!isInvisible)
+        {
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            Vector3 direction = new Vector2(moveHorizontal, 0);
+            transform.Translate(direction * speed * Time.deltaTime);
+        }
 
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space) && !isInvisible)
         {
             rb.velocity = new Vector2(rb.velocity.x, jump);
         }
