@@ -1,40 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ennemi : MonoBehaviour
 {
     public bool toleft = true;
     public float speed;
-    public Rigidbody2D rgbd;
+    private Rigidbody2D rgbd;
+    private Collider2D enemyCollider;
+    private PlayerController playerController; // Référence au script du joueur
 
-    private PlayerController playerController;
-    // Start is called before the first frame update
     void Start()
     {
-        playerController = GetComponent<PlayerController>();
+        rgbd = GetComponent<Rigidbody2D>();
+        enemyCollider = GetComponent<Collider2D>();
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>(); // Obtenez la référence au script du joueur
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (toleft)
         {
-
             rgbd.velocity = new Vector2(-speed, rgbd.velocity.y);
-
+        }
+        else
+        {
+            rgbd.velocity = new Vector2(speed, rgbd.velocity.y);
         }
 
-        else if (!toleft)
-        {
-
-            rgbd.velocity = new Vector2(speed, rgbd.velocity.y);
-
+        // Ignorer les collisions avec le joueur si le joueur est invisible
         if (playerController.isInvisible)
-            {
-                rgbd.isKinematic = true;
-            }
-
+        {
+            Physics2D.IgnoreCollision(playerController.GetComponent<Collider2D>(), enemyCollider, true);
+        }
+        else
+        {
+            Physics2D.IgnoreCollision(playerController.GetComponent<Collider2D>(), enemyCollider, false);
         }
     }
 
@@ -43,15 +42,12 @@ public class Ennemi : MonoBehaviour
         if (other.CompareTag("LeftLimit"))
         {
             toleft = false;
-
         }
 
         if (other.CompareTag("RightLimit"))
         {
             toleft = true;
-
         }
-
-
     }
 }
+
