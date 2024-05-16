@@ -51,7 +51,7 @@ public class Ennemi : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            playerController.health -= 1;
+            playerController.perdPv();
         }
     }
 }

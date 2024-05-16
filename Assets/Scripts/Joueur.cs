@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public bool isInvisible;
 
     public Sprite sp;
+    public Transform respawn;
 
     void Start()
     {
@@ -68,6 +69,11 @@ public class PlayerController : MonoBehaviour
             float fillAmount = Mathf.Clamp(currentInvisibilityDuration / maxInvisibilityDuration, 0f, 1f);
             invisibilityGauge.rectTransform.localScale = new Vector3(fillAmount, 1f, 1f);
         }
+
+        if (health <= 0)
+        {
+            perdu();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -85,6 +91,19 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    public void perdPv()
+    {
+        health -= 1;
+    }
+
+    public void perdu()
+    {
+        //Destroy(gameObject);
+        //SceneManager.LoadScene("Scene0");
+        transform.position = respawn.position;
+        health = 3;
     }
 
 }
