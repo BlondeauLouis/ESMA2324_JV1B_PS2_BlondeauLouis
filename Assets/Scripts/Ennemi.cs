@@ -48,6 +48,11 @@ public class Ennemi : MonoBehaviour
         {
             toleft = true;
         }
+
+        if (other.CompareTag("Player"))
+        {
+            playerController.health -= 1;
+        }
     }
 }
 
