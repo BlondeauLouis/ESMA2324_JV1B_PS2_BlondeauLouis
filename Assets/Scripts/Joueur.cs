@@ -62,7 +62,8 @@ public class PlayerController : MonoBehaviour
 
         if (invisibilityGauge != null)
         {
-            invisibilityGauge.fillAmount = currentInvisibilityDuration / maxInvisibilityDuration;
+            float fillAmount = Mathf.Clamp(currentInvisibilityDuration / maxInvisibilityDuration, 0f, 1f);
+            invisibilityGauge.rectTransform.localScale = new Vector3(fillAmount, 1f, 1f);
         }
     }
 
