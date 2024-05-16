@@ -10,14 +10,17 @@ public class Taguer : MonoBehaviour
         playerController = GetComponent<PlayerController>();
     }
     void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
+    {   if (playerController.currentInvisibilityDuration == playerController.maxInvisibilityDuration)
         {
-            if (isTouchingWall)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                InteractWithWall();
+                if (isTouchingWall)
+                {
+                    InteractWithWall();
+                }
             }
         }
+
         if (Input.GetKeyUp(KeyCode.E))
         {
             playerController.isInvisible = false;

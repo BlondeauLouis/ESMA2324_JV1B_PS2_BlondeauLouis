@@ -33,14 +33,14 @@ public class PlayerController : MonoBehaviour
     {
         if (!isInvisible)
         {
-            float moveHorizontal = Input.GetAxis("Horizontal");
+            float moveHorizontal = Input.GetAxis("Horizontal");       //MOUVEMENT
             Vector3 direction = new Vector2(moveHorizontal, 0);
             transform.Translate(direction * speed * Time.deltaTime);
         }
 
         if (isGrounded && Input.GetKeyDown(KeyCode.Space) && !isInvisible)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jump);
+            rb.velocity = new Vector2(rb.velocity.x, jump);     //SAUT
         }
 
         currentInvisibilityDuration = Mathf.Clamp(currentInvisibilityDuration, 0, maxInvisibilityDuration);
