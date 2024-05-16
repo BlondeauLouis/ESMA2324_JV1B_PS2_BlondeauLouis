@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class PlayerController : MonoBehaviour
     public float currentInvisibilityDuration;
     public float invisibilityRechargeRate = 1f;
 
+    private bool isInvincible = false;
+    public float invincibilityTime = 2f;
+
+    private Color baseColor;
     private Rigidbody2D rb;
     private SpriteRenderer SpriteRenderer;
 
@@ -28,6 +33,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         currentInvisibilityDuration = maxInvisibilityDuration;
+        baseColor = SpriteRenderer.color;
     }
 
     void Update()
@@ -95,15 +101,25 @@ public class PlayerController : MonoBehaviour
 
     public void perdPv()
     {
-        health -= 1;
+        if (!isInvincible)
+        {
+            health--;
+            StartCoroutine(InvincibilityRoutine());
+        }
     }
 
     public void perdu()
     {
         //Destroy(gameObject);
-        //SceneManager.LoadScene("Scene0");
+        //SceneManager.LoadScene("Initialisation");
         transform.position = respawn.position;
         health = 3;
     }
 
+    IEnumerator InvincibilityRoutine()  //FRAMES D'INVINCIBILITÉ   ( /!\ ne pas toucher, tu sais pas comment ça marche)
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(invincibilityTime);
+        isInvincible = false;
+    }
 }
