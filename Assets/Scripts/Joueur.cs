@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance;
+
     public float speed;
     public float jump;
     public float health;
@@ -30,6 +32,19 @@ public class PlayerController : MonoBehaviour
 
     private bool isFollowingPlatform = false;
     private Transform platformToFollow;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("Il y a déjà une instance de PlayerController dans la scène.");
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
