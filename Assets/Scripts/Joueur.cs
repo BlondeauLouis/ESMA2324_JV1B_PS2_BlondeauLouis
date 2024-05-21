@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
         if (health <= 0)
         {
-            perdu();
+            Perdu();
         }
     }
 
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void perdPv()
+    public void PerdPv()
     {
         if (!isInvincible)
         {
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void perdu()
+    public void Perdu()
     {
         //Destroy(gameObject);
         //SceneManager.LoadScene("Initialisation");
