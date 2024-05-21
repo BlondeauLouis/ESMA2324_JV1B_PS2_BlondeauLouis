@@ -5,6 +5,6 @@ public class StartButton : MonoBehaviour
 {
     public void OnStartButtonClicked()
     {
-        SceneManager.LoadScene("Initialisation");
+        SceneManager.LoadScene("Choix Niveau");
     }
 }
