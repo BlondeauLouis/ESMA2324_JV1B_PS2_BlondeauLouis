@@ -9,6 +9,7 @@ TagManager:
   - LeftLimit
   - RightLimit
   - Enemy
+  - Ascenseur
   layers:
   - Default
   - TransparentFX

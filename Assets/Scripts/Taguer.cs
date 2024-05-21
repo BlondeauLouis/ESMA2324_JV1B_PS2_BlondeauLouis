@@ -3,14 +3,18 @@ using UnityEngine;
 public class Taguer : MonoBehaviour
 {
     private bool isTouchingWall = false;
+    private bool isTouchingPlatform = false;
     private PlayerController playerController;
+    private Transform platformTransform;
 
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
     }
+
     void Update()
-    {   if (playerController.currentInvisibilityDuration == playerController.maxInvisibilityDuration)
+    {
+        if (playerController.currentInvisibilityDuration == playerController.maxInvisibilityDuration)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -18,12 +22,17 @@ public class Taguer : MonoBehaviour
                 {
                     InteractWithWall();
                 }
+                else if (isTouchingPlatform)
+                {
+                    InteractWithPlatform();
+                }
             }
         }
 
         if (Input.GetKeyUp(KeyCode.E))
         {
             playerController.isInvisible = false;
+            playerController.StopFollowingPlatform();
         }
     }
 
@@ -32,6 +41,11 @@ public class Taguer : MonoBehaviour
         if (other.CompareTag("Wall"))
         {
             isTouchingWall = true;
+        }
+        else if (other.CompareTag("Ascenseur"))
+        {
+            isTouchingPlatform = true;
+            platformTransform = other.transform;
         }
     }
 
@@ -42,10 +56,23 @@ public class Taguer : MonoBehaviour
             isTouchingWall = false;
             playerController.isInvisible = false;
         }
+        else if (other.CompareTag("Ascenseur"))
+        {
+            isTouchingPlatform = false;
+            playerController.isInvisible = false;
+            playerController.StopFollowingPlatform();
+        }
     }
 
     void InteractWithWall()
     {
         playerController.isInvisible = true;
     }
+
+    void InteractWithPlatform()
+    {
+        playerController.isInvisible = true;
+        playerController.StartFollowingPlatform(platformTransform);
+    }
 }
+

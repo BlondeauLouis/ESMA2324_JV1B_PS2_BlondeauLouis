@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private Color baseColor;
     private Rigidbody2D rb;
-    private SpriteRenderer SpriteRenderer;
+    private SpriteRenderer spriteRenderer;
 
     private bool isGrounded;
     public bool isInvisible;
@@ -28,12 +28,15 @@ public class PlayerController : MonoBehaviour
     public Sprite sp;
     public Transform respawn;
 
+    private bool isFollowingPlatform = false;
+    private Transform platformToFollow;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        SpriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         currentInvisibilityDuration = maxInvisibilityDuration;
-        baseColor = SpriteRenderer.color;
+        baseColor = spriteRenderer.color;
     }
 
     void Update()
@@ -54,16 +57,17 @@ public class PlayerController : MonoBehaviour
 
         if (isInvisible)
         {
-            SpriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
+            spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
             currentInvisibilityDuration -= Time.deltaTime;
             if (currentInvisibilityDuration <= 0)
             {
                 isInvisible = false;
+                StopFollowingPlatform();
             }
         }
         else
         {
-            SpriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+            spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
             if (currentInvisibilityDuration < maxInvisibilityDuration)
             {
                 currentInvisibilityDuration += invisibilityRechargeRate * Time.deltaTime;
@@ -79,6 +83,11 @@ public class PlayerController : MonoBehaviour
         if (health <= 0)
         {
             Perdu();
+        }
+
+        if (isFollowingPlatform)
+        {
+            FollowPlatform();
         }
     }
 
@@ -110,16 +119,34 @@ public class PlayerController : MonoBehaviour
 
     public void Perdu()
     {
-        //Destroy(gameObject);
-        //SceneManager.LoadScene("Initialisation");
         transform.position = respawn.position;
         health = 3;
     }
 
-    IEnumerator InvincibilityRoutine()  //FRAMES D'INVINCIBILITÉ   ( /!\ ne pas toucher, tu sais pas comment ça marche)
+    IEnumerator InvincibilityRoutine()
     {
         isInvincible = true;
         yield return new WaitForSeconds(invincibilityTime);
         isInvincible = false;
+    }
+
+    public void StartFollowingPlatform(Transform platform)
+    {
+        isFollowingPlatform = true;
+        platformToFollow = platform;
+    }
+
+    public void StopFollowingPlatform()
+    {
+        isFollowingPlatform = false;
+        platformToFollow = null;
+    }
+
+    private void FollowPlatform()
+    {
+        if (platformToFollow != null)
+        {
+            transform.position = new Vector2(transform.position.x, platformToFollow.position.y);
+        }
     }
 }
