@@ -35,7 +35,6 @@ public class Taguer : MonoBehaviour
                 else if (isTouchingHeart)
                 {
                     StartCoroutine(TaguerHeart());
-                    InteractWithHeart();
                 }
             }
         }
@@ -81,6 +80,7 @@ public class Taguer : MonoBehaviour
         else if (other.CompareTag("Heart"))
         {
             isTouchingHeart = false;
+            playerController.isInvisible = false;
         }
     }
 
@@ -97,16 +97,28 @@ public class Taguer : MonoBehaviour
 
     void InteractWithHeart()
     {
+        playerController.isInvisible = true;
         playerController.GainPv();
     }
 
     IEnumerator TaguerHeart()
     {
         yield return new WaitForSeconds(tagTime);
+
+        // Attendre tant que le joueur reste appuyé sur la touche E
+        while (Input.GetKey(KeyCode.E))
+        {
+            yield return null;
+        }
+
+        // Si le joueur ne reste plus appuyé, récupérer le coeur
         InteractWithHeart();
+
+        // Détruire le GameObject du coeur après avoir récupéré le coeur
         if (heart != null)
         {
             Destroy(heart);
         }
     }
+
 }
