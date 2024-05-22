@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &115473401
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3314441617648605638, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_Name
+      value: Plateforme qui tombe (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.994237
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.854
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
 --- !u!1 &211102269
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +213,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cad7a93a68b9934cb2c21d87947e0f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlockedLevels: 0
   speed: 15
   jump: 20
   health: 3
@@ -164,6 +220,7 @@ MonoBehaviour:
   maxInvisibilityDuration: 5
   currentInvisibilityDuration: 0
   invisibilityRechargeRate: 1
+  glideForce: 1.5
   invincibilityTime: 2
   isInvisible: 0
   sp: {fileID: 0}
@@ -2194,6 +2251,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toleft: 1
   speed: 8
+--- !u!1001 &1561708494
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3314441617648605638, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_Name
+      value: Plateforme qui tombe (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.1494224
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.854
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
 --- !u!1 &1577396306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2742,6 +2856,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2530659267991176867
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3314441617648605638, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_Name
+      value: Plateforme qui tombe
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.5648
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.854
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374307694618198192, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eaa3c3b9f58b21f4ea72217a464be0a6, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2762,3 +2933,6 @@ SceneRoots:
   - {fileID: 1438412118}
   - {fileID: 1349908686}
   - {fileID: 1618719873}
+  - {fileID: 2530659267991176867}
+  - {fileID: 1561708494}
+  - {fileID: 115473401}

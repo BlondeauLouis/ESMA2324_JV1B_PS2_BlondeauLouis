@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public float maxInvisibilityDuration = 5f;
     public float currentInvisibilityDuration;
     public float invisibilityRechargeRate = 1f;
+    public float glideForce = 10f;
+
 
     private bool isInvincible = false;
     public float invincibilityTime = 2f;
@@ -68,6 +70,11 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && Input.GetKeyDown(KeyCode.Space) && !isInvisible)
         {
             rb.velocity = new Vector2(rb.velocity.x, jump);     //SAUT
+        }
+
+        if (!isGrounded && Input.GetKey(KeyCode.LeftShift))         //PLANER
+        {
+            rb.AddForce(Vector2.up * glideForce, ForceMode2D.Force);
         }
 
         currentInvisibilityDuration = Mathf.Clamp(currentInvisibilityDuration, 0, maxInvisibilityDuration);
