@@ -11,6 +11,8 @@ public class Taguer : MonoBehaviour
 
     public float tagTime = 1f;
 
+    private GameObject heart;
+
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -32,6 +34,7 @@ public class Taguer : MonoBehaviour
                 }
                 else if (isTouchingHeart)
                 {
+                    StartCoroutine(TaguerHeart());
                     InteractWithHeart();
                 }
             }
@@ -58,7 +61,7 @@ public class Taguer : MonoBehaviour
         else if (other.CompareTag("Heart"))
         {
             isTouchingHeart = true;
-            StartCoroutine(TaguerHeart());
+            heart = other.gameObject;
         }
     }
 
@@ -100,6 +103,10 @@ public class Taguer : MonoBehaviour
     IEnumerator TaguerHeart()
     {
         yield return new WaitForSeconds(tagTime);
+        InteractWithHeart();
+        if (heart != null)
+        {
+            Destroy(heart);
+        }
     }
 }
-
