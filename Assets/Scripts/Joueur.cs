@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
 
+    private LevelsUnlocked levelsUnlocked;
+
     public float speed;
     public float jump;
     public float health;
@@ -120,6 +122,14 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Finish"))
+        {
+            levelsUnlocked.unlockedLevels++;
         }
     }
 

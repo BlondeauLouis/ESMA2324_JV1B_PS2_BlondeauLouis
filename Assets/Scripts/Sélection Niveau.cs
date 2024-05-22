@@ -7,20 +7,26 @@ public class LevelSelector : MonoBehaviour
     public Transform[] levelPositions;  // Positions des niveaux
     public GameObject cursor;  // Le curseur
     public float moveSpeed = 5f;  // Vitesse de déplacement du curseur
-    public bool[] levelUnlocked;  // Tableau pour savoir quels niveaux sont déverrouillés
     public Color lockedColor = Color.red;  // Couleur des niveaux verrouillés
     public Color unlockedColor = Color.blue;  // Couleur des niveaux déverrouillés
 
     private int currentLevelIndex = 0;
+    private bool[] levelUnlocked;  // Tableau pour savoir quels niveaux sont déverrouillés
+    private LevelsUnlocked levelsUnlocked;
 
     void Start()
     {
-        // Initialiser le tableau des niveaux déverrouillés
-        levelUnlocked = new bool[levelPositions.Length];
-        for (int i = 0; i < levelUnlocked.Length; i++)
+        // Trouver l'objet LevelsUnlocked dans la scène
+        levelsUnlocked = FindObjectOfType<LevelsUnlocked>();
+
+        if (levelsUnlocked == null)
         {
-            levelUnlocked[i] = (i == 0);  // Déverrouiller seulement le premier niveau au début
+            Debug.LogError("LevelsUnlocked object not found in the scene.");
+            return;
         }
+
+        // Mettre à jour les niveaux déverrouillés en fonction des données de LevelsUnlocked
+        UpdateUnlockedLevels();
 
         // Positionner le curseur sur le premier niveau au début
         cursor.transform.position = new Vector3(levelPositions[currentLevelIndex].position.x, levelPositions[currentLevelIndex].position.y, cursor.transform.position.z);
@@ -76,7 +82,6 @@ public class LevelSelector : MonoBehaviour
     void SelectLevel()
     {
         // Charger la scène du niveau sélectionné
-        // Utilisez le nom de la scène ou l'index dans Build Settings
         SceneManager.LoadScene("Level" + (currentLevelIndex + 1));
     }
 
@@ -92,13 +97,16 @@ public class LevelSelector : MonoBehaviour
         }
     }
 
-    public void UnlockNextLevel()
+    void UpdateUnlockedLevels()
     {
-        // Déverrouiller le prochain niveau si possible
-        if (currentLevelIndex + 1 < levelUnlocked.Length)
+        // Récupérer le nombre de niveaux déverrouillés à partir de LevelsUnlocked
+        int levelsUnlockedCount = Mathf.Clamp((int)levelsUnlocked.unlockedLevels, 0, levelPositions.Length);
+        levelUnlocked = new bool[levelPositions.Length];
+
+        // Mettre à jour l'état des niveaux déverrouillés
+        for (int i = 0; i < levelUnlocked.Length; i++)
         {
-            levelUnlocked[currentLevelIndex + 1] = true;
-            UpdateLevelVisuals();
+            levelUnlocked[i] = (i < levelsUnlockedCount);
         }
     }
 }
