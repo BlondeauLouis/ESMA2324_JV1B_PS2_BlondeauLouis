@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +12,6 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jump;
     public float health;
-    public int lives;
 
     public Image invisibilityGauge;
     public float maxInvisibilityDuration = 5f;
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public float invisibilityRechargeRate = 1f;
     public float glideForce = 10f;
 
-    public Text livesText;
+    public Text livesText; // Assurez-vous que c'est public et de type UnityEngine.UI.Text
 
     private bool isInvincible = false;
     public float invincibilityTime = 2f;
@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
             FollowPlatform();
         }
 
-        if (lives <= 0)
+        if (GameManager.Instance.playerLives <= 0)
         {
             SceneManager.LoadScene("Game Over");
         }
@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
 
     public void Perdu()
     {
-        lives--;
+        GameManager.Instance.LoseLife();
         transform.position = respawn.position;
         health = 3;
         UpdateLivesText(); // Mettre à jour le texte des vies lorsqu'on perd une vie
@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour
     {
         if (livesText != null)
         {
-            livesText.text = "Lives: " + lives.ToString();
+            livesText.text = "Lives: " + GameManager.Instance.playerLives.ToString();
         }
     }
 }
