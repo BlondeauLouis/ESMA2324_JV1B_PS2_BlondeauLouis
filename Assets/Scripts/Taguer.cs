@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Taguer : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class Taguer : MonoBehaviour
     private bool isTouchingHeart = false;
     private PlayerController playerController;
     private Transform platformTransform;
+
+    public float tagTime = 1f;
 
     private void Start()
     {
@@ -55,6 +58,7 @@ public class Taguer : MonoBehaviour
         else if (other.CompareTag("Heart"))
         {
             isTouchingHeart = true;
+            StartCoroutine(TaguerHeart());
         }
     }
 
@@ -74,7 +78,6 @@ public class Taguer : MonoBehaviour
         else if (other.CompareTag("Heart"))
         {
             isTouchingHeart = false;
-            Destroy(other);
         }
     }
 
@@ -92,6 +95,11 @@ public class Taguer : MonoBehaviour
     void InteractWithHeart()
     {
         playerController.GainPv();
+    }
+
+    IEnumerator TaguerHeart()
+    {
+        yield return new WaitForSeconds(tagTime);
     }
 }
 
