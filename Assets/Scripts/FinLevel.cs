@@ -15,6 +15,8 @@ public class FinLevel : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            GameObject LevelsUnlocked = GameObject.FindWithTag("LevelsUnlocked");
+            LevelsUnlocked.SendMessage("LevelCompleted");
             SceneManager.LoadScene("Choix Niveau");
         }
     }

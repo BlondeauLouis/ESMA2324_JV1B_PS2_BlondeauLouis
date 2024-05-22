@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class LevelsUnlocked : MonoBehaviour
 {
-
     public float unlockedLevels;
 
-    // Start is called before the first frame update
     void Start()
     {
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    void LevelCompleted()
     {
-        
+        unlockedLevels++;
     }
 }

@@ -10,6 +10,7 @@ TagManager:
   - RightLimit
   - Enemy
   - Ascenseur
+  - LevelsUnlocked
   layers:
   - Default
   - TransparentFX
