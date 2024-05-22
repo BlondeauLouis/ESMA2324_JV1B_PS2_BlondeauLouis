@@ -12,6 +12,7 @@ TagManager:
   - Ascenseur
   - LevelsUnlocked
   - Hole
+  - Heart
   layers:
   - Default
   - TransparentFX

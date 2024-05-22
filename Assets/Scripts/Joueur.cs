@@ -149,6 +149,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void GainPv()
+    {
+        if (health < 3)
+        {
+            health++;
+        }
+    }
+
     public void Perdu()
     {
         GameManager.Instance.LoseLife();

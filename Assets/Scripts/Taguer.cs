@@ -4,6 +4,7 @@ public class Taguer : MonoBehaviour
 {
     private bool isTouchingWall = false;
     private bool isTouchingPlatform = false;
+    private bool isTouchingHeart = false;
     private PlayerController playerController;
     private Transform platformTransform;
 
@@ -26,6 +27,10 @@ public class Taguer : MonoBehaviour
                 {
                     InteractWithPlatform();
                 }
+                else if (isTouchingHeart)
+                {
+                    InteractWithHeart();
+                }
             }
         }
 
@@ -47,6 +52,10 @@ public class Taguer : MonoBehaviour
             isTouchingPlatform = true;
             platformTransform = other.transform;
         }
+        else if (other.CompareTag("Heart"))
+        {
+            isTouchingHeart = true;
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -62,6 +71,11 @@ public class Taguer : MonoBehaviour
             playerController.isInvisible = false;
             playerController.StopFollowingPlatform();
         }
+        else if (other.CompareTag("Heart"))
+        {
+            isTouchingHeart = false;
+            Destroy(other);
+        }
     }
 
     void InteractWithWall()
@@ -73,6 +87,11 @@ public class Taguer : MonoBehaviour
     {
         playerController.isInvisible = true;
         playerController.StartFollowingPlatform(platformTransform);
+    }
+
+    void InteractWithHeart()
+    {
+        playerController.GainPv();
     }
 }
 
