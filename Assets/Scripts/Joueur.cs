@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jump;
     public float health;
-    public float lives;
+    public int lives;
 
     public Image invisibilityGauge;
     public float maxInvisibilityDuration = 5f;
@@ -20,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public float invisibilityRechargeRate = 1f;
     public float glideForce = 10f;
 
+    public Text livesText;
 
     private bool isInvincible = false;
     public float invincibilityTime = 2f;
@@ -56,6 +56,9 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentInvisibilityDuration = maxInvisibilityDuration;
         baseColor = spriteRenderer.color;
+
+        // Mettre à jour le texte des vies au démarrage
+        UpdateLivesText();
     }
 
     void Update()
@@ -151,6 +154,7 @@ public class PlayerController : MonoBehaviour
         lives--;
         transform.position = respawn.position;
         health = 3;
+        UpdateLivesText(); // Mettre à jour le texte des vies lorsqu'on perd une vie
     }
 
     IEnumerator InvincibilityRoutine()
@@ -177,6 +181,14 @@ public class PlayerController : MonoBehaviour
         if (platformToFollow != null)
         {
             transform.position = new Vector2(transform.position.x, platformToFollow.position.y);
+        }
+    }
+
+    private void UpdateLivesText()
+    {
+        if (livesText != null)
+        {
+            livesText.text = "Lives: " + lives.ToString();
         }
     }
 }
