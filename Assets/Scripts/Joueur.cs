@@ -9,11 +9,10 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
 
-    private LevelsUnlocked levelsUnlocked;
-
     public float speed;
     public float jump;
     public float health;
+    public float lives;
 
     public Image invisibilityGauge;
     public float maxInvisibilityDuration = 5f;
@@ -28,7 +27,6 @@ public class PlayerController : MonoBehaviour
     private Color baseColor;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-    private CinemachineVirtualCamera virtualCamera;
 
     private bool isGrounded;
     public bool isInvisible;
@@ -58,7 +56,6 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentInvisibilityDuration = maxInvisibilityDuration;
         baseColor = spriteRenderer.color;
-        virtualCamera = GetComponent<CinemachineVirtualCamera>();
     }
 
     void Update()
@@ -116,6 +113,11 @@ public class PlayerController : MonoBehaviour
         {
             FollowPlatform();
         }
+
+        if (lives <= 0)
+        {
+            SceneManager.LoadScene("Game Over");
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -135,16 +137,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Hole"))
-        {
-            // Désactiver la Virtual Camera lorsque le joueur tombe dans le trou
-            virtualCamera.enabled = false;
-            // Ajoutez ici le code pour perdre toutes les vies du joueur
-        }
-    }
-
     public void PerdPv()
     {
         if (!isInvincible)
@@ -156,6 +148,7 @@ public class PlayerController : MonoBehaviour
 
     public void Perdu()
     {
+        lives--;
         transform.position = respawn.position;
         health = 3;
     }
