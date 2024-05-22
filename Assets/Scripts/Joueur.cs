@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private Color baseColor;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private CinemachineVirtualCamera virtualCamera;
 
     private bool isGrounded;
     public bool isInvisible;
@@ -56,6 +58,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentInvisibilityDuration = maxInvisibilityDuration;
         baseColor = spriteRenderer.color;
+        virtualCamera = GetComponent<CinemachineVirtualCamera>();
     }
 
     void Update()
@@ -129,6 +132,16 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Hole"))
+        {
+            // Désactiver la Virtual Camera lorsque le joueur tombe dans le trou
+            virtualCamera.enabled = false;
+            // Ajoutez ici le code pour perdre toutes les vies du joueur
         }
     }
 

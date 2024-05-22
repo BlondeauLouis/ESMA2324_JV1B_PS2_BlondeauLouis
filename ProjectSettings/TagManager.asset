@@ -11,6 +11,7 @@ TagManager:
   - Enemy
   - Ascenseur
   - LevelsUnlocked
+  - Hole
   layers:
   - Default
   - TransparentFX
