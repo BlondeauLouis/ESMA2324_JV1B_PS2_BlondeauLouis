@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance;
 
     public float speed;
+    private float baseSpeed;
+    private float glideSpeed;
+
     public float jump;
     public float health;
 
@@ -58,6 +61,8 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentInvisibilityDuration = maxInvisibilityDuration;
         baseColor = spriteRenderer.color;
+        baseSpeed = speed;
+        glideSpeed = speed * 0.75f;
 
         UpdateLivesText();
 
@@ -90,14 +95,21 @@ public class PlayerController : MonoBehaviour
             transform.Translate(direction * speed * Time.deltaTime);
         }
 
-        if (isGrounded && Input.GetKeyDown(keyMappings["Jump"]) && !isInvisible)
+        if (isGrounded && Input.GetKeyDown(keyMappings["Jump"]) && !isInvisible)    //SAUTER
         {
             rb.velocity = new Vector2(rb.velocity.x, jump);
         }
 
-        if (!isGrounded && Input.GetKey(keyMappings["Glide"]))
+        if (!isGrounded && Input.GetKey(keyMappings["Glide"]) && rb.velocity.y < 0)     //PLANER
         {
-            rb.AddForce(Vector2.up * glideForce, ForceMode2D.Force);
+            speed = glideSpeed;
+            rb.gravityScale = 0.4f;
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -5f));
+        }
+        else 
+        { 
+            rb.gravityScale = 5f;
+            speed = baseSpeed;
         }
 
         currentInvisibilityDuration = Mathf.Clamp(currentInvisibilityDuration, 0, maxInvisibilityDuration);
