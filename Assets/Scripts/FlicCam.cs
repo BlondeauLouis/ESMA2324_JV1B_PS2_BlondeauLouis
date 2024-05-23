@@ -10,6 +10,9 @@ public class FlicCam : MonoBehaviour
     private Transform playerTransform;
     private float initialY;
 
+    public bool toleft = true;
+    private bool isActif = false;
+
     void Start()
     {
         rgbd = GetComponent<Rigidbody2D>();
@@ -21,11 +24,34 @@ public class FlicCam : MonoBehaviour
 
     void Update()
     {
-        // Ignorer les collisions avec le joueur si le joueur est invisible
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!isActif && other.CompareTag("LeftLimit"))
+        {
+            toleft = false;
+        }
+
+        if (!isActif && other.CompareTag("RightLimit"))
+        {
+            toleft = true;
+        }
+
+        if (other.CompareTag("Player"))
+        {
+            playerController.PerdPv();
+        }
+    }
+
+    public void Actif()
+    {
+        isActif = true;
         if (playerController.isInvisible)
         {
             Physics2D.IgnoreCollision(playerController.GetComponent<Collider2D>(), enemyCollider, true);
-            rgbd.velocity = Vector2.zero; // Arrêter le mouvement si le joueur est invisible
+            rgbd.velocity = Vector2.zero;
         }
         else
         {
@@ -34,7 +60,7 @@ public class FlicCam : MonoBehaviour
             if (playerTransform != null)
             {
                 Vector2 direction = (playerTransform.position - transform.position).normalized;
-                direction.y = 0; // Contraindre le mouvement uniquement sur l'axe X
+                direction.y = 0;
                 rgbd.velocity = direction * speed;
             }
             else
@@ -43,17 +69,21 @@ public class FlicCam : MonoBehaviour
             }
         }
 
-        // Verrouiller la position en Y pour éviter l'enfoncement
         Vector3 position = transform.position;
         position.y = initialY;
         transform.position = position;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void Passif()
     {
-        if (other.CompareTag("Player"))
+        isActif = false;
+        if (toleft)
         {
-            playerController.PerdPv();
+            rgbd.velocity = new Vector2(-speed, rgbd.velocity.y);
+        }
+        else
+        {
+            rgbd.velocity = new Vector2(speed, rgbd.velocity.y);
         }
     }
 }
