@@ -50,6 +50,15 @@ public class Drone : MonoBehaviour
                 rgbd.velocity = new Vector2(speed, -speedb);
             }
         }
+
+        if (playerController.isInvisible)   //JOUEUR INVISIBLE -> PAS TOUCHER
+        {
+            Physics2D.IgnoreCollision(playerController.GetComponent<Collider2D>(), enemyCollider, true);
+        }
+        else
+        {
+            Physics2D.IgnoreCollision(playerController.GetComponent<Collider2D>(), enemyCollider, false);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -92,6 +101,11 @@ public class Drone : MonoBehaviour
         {
             to_up = true;
 
+        }
+        
+        if (other.CompareTag("Player"))
+        {
+            playerController.PerdPv();
         }
     }
 }

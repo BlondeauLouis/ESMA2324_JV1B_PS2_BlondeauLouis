@@ -14,6 +14,8 @@ TagManager:
   - Hole
   - Heart
   - Life
+  - UpLimit
+  - DownLimit
   layers:
   - Default
   - TransparentFX
