@@ -2375,10 +2375,12 @@ MonoBehaviour:
   moveLeftButton: {fileID: 1383694682}
   moveRightButton: {fileID: 2073086100}
   jumpButton: {fileID: 1755874018}
+  tagButton: {fileID: 619539955}
   glideButton: {fileID: 1371281180}
   moveLeftButtonText: {fileID: 2129306601}
   moveRightButtonText: {fileID: 878553359}
   jumpButtonText: {fileID: 505641886}
+  tagButtonText: {fileID: 1293039481}
   glideButtonText: {fileID: 399978415}
 --- !u!1 &1148113164
 GameObject:
@@ -2405,7 +2407,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148113164}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
