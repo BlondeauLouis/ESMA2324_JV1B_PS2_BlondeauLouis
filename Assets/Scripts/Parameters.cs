@@ -9,6 +9,18 @@ public class SettingsManager : MonoBehaviour
     public Toggle fullscreenToggle;
     public Dropdown resolutionDropdown;
 
+    public Button moveLeftButton;
+    public Button moveRightButton;
+    public Button jumpButton;
+    public Button glideButton;
+    public Text moveLeftButtonText;
+    public Text moveRightButtonText;
+    public Text jumpButtonText;
+    public Text glideButtonText;
+
+    private string waitingForKey = null;
+    private Dictionary<string, KeyCode> keyMappings;
+
     private void Start()
     {
         // Initialiser les sliders avec les valeurs actuelles
@@ -35,11 +47,46 @@ public class SettingsManager : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
+        // Initialiser les boutons avec les valeurs actuelles
+        keyMappings = new Dictionary<string, KeyCode>
+        {
+            { "MoveLeft", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("MoveLeft", "A")) },
+            { "MoveRight", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("MoveRight", "D")) },
+            { "Jump", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump", "Space")) },
+            { "Glide", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Glide", "LeftShift")) }
+        };
+
+        moveLeftButtonText.text = keyMappings["MoveLeft"].ToString();
+        moveRightButtonText.text = keyMappings["MoveRight"].ToString();
+        jumpButtonText.text = keyMappings["Jump"].ToString();
+        glideButtonText.text = keyMappings["Glide"].ToString();
+
         // Ajouter des listeners
         musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
         sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
         fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
+
+        moveLeftButton.onClick.AddListener(() => StartListeningForKey("MoveLeft"));
+        moveRightButton.onClick.AddListener(() => StartListeningForKey("MoveRight"));
+        jumpButton.onClick.AddListener(() => StartListeningForKey("Jump"));
+        glideButton.onClick.AddListener(() => StartListeningForKey("Glide"));
+    }
+
+    void Update()
+    {
+        if (waitingForKey != null)
+        {
+            foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyDown(keyCode))
+                {
+                    SetKeyBinding(waitingForKey, keyCode);
+                    waitingForKey = null;
+                    break;
+                }
+            }
+        }
     }
 
     public void SetMusicVolume(float volume)
@@ -65,5 +112,34 @@ public class SettingsManager : MonoBehaviour
     {
         Resolution resolution = Screen.resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void SetKeyBinding(string key, KeyCode newKey)
+    {
+        keyMappings[key] = newKey;
+        PlayerPrefs.SetString(key, newKey.ToString());
+
+        switch (key)
+        {
+            case "MoveLeft":
+                moveLeftButtonText.text = newKey.ToString();
+                break;
+            case "MoveRight":
+                moveRightButtonText.text = newKey.ToString();
+                break;
+            case "Jump":
+                jumpButtonText.text = newKey.ToString();
+                break;
+            case "Glide":
+                glideButtonText.text = newKey.ToString();
+                break;
+        }
+
+        Debug.Log($"Key binding set: {key} = {newKey}");
+    }
+
+    private void StartListeningForKey(string key)
+    {
+        waitingForKey = key;
     }
 }

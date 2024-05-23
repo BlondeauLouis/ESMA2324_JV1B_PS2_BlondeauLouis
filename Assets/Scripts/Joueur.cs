@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
     private bool isFollowingPlatform = false;
     private Transform platformToFollow;
 
+    private Dictionary<string, KeyCode> keyMappings;
+
     void Awake()
     {
         if (Instance == null)
@@ -58,23 +60,41 @@ public class PlayerController : MonoBehaviour
         baseColor = spriteRenderer.color;
 
         UpdateLivesText();
+
+        keyMappings = new Dictionary<string, KeyCode>
+        {
+            { "MoveLeft", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("MoveLeft", "A")) },
+            { "MoveRight", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("MoveRight", "D")) },
+            { "Jump", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump", "Space")) },
+            { "Glide", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Glide", "LeftShift")) }
+        };
     }
 
     void Update()
     {
         if (!isInvisible)
         {
-            float moveHorizontal = Input.GetAxis("Horizontal");       //MOUVEMENT
+            float moveHorizontal = 0f;
+
+            if (Input.GetKey(keyMappings["MoveLeft"]))
+            {
+                moveHorizontal = -1f;
+            }
+            else if (Input.GetKey(keyMappings["MoveRight"]))
+            {
+                moveHorizontal = 1f;
+            }
+
             Vector3 direction = new Vector2(moveHorizontal, 0);
             transform.Translate(direction * speed * Time.deltaTime);
         }
 
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space) && !isInvisible)
+        if (isGrounded && Input.GetKeyDown(keyMappings["Jump"]) && !isInvisible)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jump);     //SAUT
+            rb.velocity = new Vector2(rb.velocity.x, jump);
         }
 
-        if (!isGrounded && Input.GetKey(KeyCode.LeftShift))         //PLANER
+        if (!isGrounded && Input.GetKey(keyMappings["Glide"]))
         {
             rb.AddForce(Vector2.up * glideForce, ForceMode2D.Force);
         }
@@ -128,7 +148,6 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
         }
-
     }
 
     void OnCollisionExit2D(Collision2D collision)
@@ -215,3 +234,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+
