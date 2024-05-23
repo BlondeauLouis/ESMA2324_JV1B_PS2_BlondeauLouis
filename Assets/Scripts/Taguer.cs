@@ -5,13 +5,8 @@ public class Taguer : MonoBehaviour
 {
     private bool isTouchingWall = false;
     private bool isTouchingPlatform = false;
-    private bool isTouchingHeart = false;
     private PlayerController playerController;
     private Transform platformTransform;
-
-    public float tagTime = 1f;
-
-    private GameObject heart;
 
     private void Start()
     {
@@ -31,10 +26,6 @@ public class Taguer : MonoBehaviour
                 else if (isTouchingPlatform)
                 {
                     InteractWithPlatform();
-                }
-                else if (isTouchingHeart)
-                {
-                    StartCoroutine(TaguerHeart());
                 }
             }
         }
@@ -57,11 +48,6 @@ public class Taguer : MonoBehaviour
             isTouchingPlatform = true;
             platformTransform = other.transform;
         }
-        else if (other.CompareTag("Heart"))
-        {
-            isTouchingHeart = true;
-            heart = other.gameObject;
-        }
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -77,11 +63,6 @@ public class Taguer : MonoBehaviour
             playerController.isInvisible = false;
             playerController.StopFollowingPlatform();
         }
-        else if (other.CompareTag("Heart"))
-        {
-            isTouchingHeart = false;
-            playerController.isInvisible = false;
-        }
     }
 
     void InteractWithWall()
@@ -95,30 +76,5 @@ public class Taguer : MonoBehaviour
         playerController.StartFollowingPlatform(platformTransform);
     }
 
-    void InteractWithHeart()
-    {
-        playerController.isInvisible = true;
-        playerController.GainPv();
-    }
-
-    IEnumerator TaguerHeart()
-    {
-        yield return new WaitForSeconds(tagTime);
-
-        // Attendre tant que le joueur reste appuyé sur la touche E
-        while (Input.GetKey(KeyCode.E))
-        {
-            yield return null;
-        }
-
-        // Si le joueur ne reste plus appuyé, récupérer le coeur
-        InteractWithHeart();
-
-        // Détruire le GameObject du coeur après avoir récupéré le coeur
-        if (heart != null)
-        {
-            Destroy(heart);
-        }
-    }
 
 }

@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public float invisibilityRechargeRate = 1f;
     public float glideForce = 10f;
 
-    public Text livesText; // Assurez-vous que c'est public et de type UnityEngine.UI.Text
+    public Text livesText;
 
     private bool isInvincible = false;
     public float invincibilityTime = 2f;
@@ -57,7 +57,6 @@ public class PlayerController : MonoBehaviour
         currentInvisibilityDuration = maxInvisibilityDuration;
         baseColor = spriteRenderer.color;
 
-        // Mettre à jour le texte des vies au démarrage
         UpdateLivesText();
     }
 
@@ -140,6 +139,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Heart"))
+        {
+            Destroy(collision.gameObject);
+            GainPv();
+        }
+    }
+
     public void PerdPv()
     {
         if (!isInvincible)
@@ -162,7 +170,7 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.LoseLife();
         transform.position = respawn.position;
         health = 3;
-        UpdateLivesText(); // Mettre à jour le texte des vies lorsqu'on perd une vie
+        UpdateLivesText();
     }
 
     IEnumerator InvincibilityRoutine()
