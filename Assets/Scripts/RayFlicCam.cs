@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class RayFlicCam : MonoBehaviour
 {
-    private FlicCam flicCam;
+    public FlicCam flicCam; // Rendre cette variable publique pour pouvoir l'assigner dans l'inspecteur
+
     private PlayerController playerController;
     private Collider2D enemyCollider;
-    // Start is called before the first frame update
+
     void Start()
     {
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-
         enemyCollider = GetComponent<Collider2D>();
+
+        if (flicCam == null)
+        {
+            Debug.LogError("FlicCam reference is not assigned in RayFlicCam script.");
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (playerController.isInvisible)
@@ -34,7 +38,6 @@ public class RayFlicCam : MonoBehaviour
         {
             flicCam.isActif = true;
         }
-
     }
 
     private void OnTriggerExit2D(Collider2D collision)

@@ -24,11 +24,11 @@ public class FlicCam : MonoBehaviour
 
     void Update()
     {
-        if (isActif == true)
+        if (isActif)
         {
             Actif();
         }
-        else if (isActif == false)
+        else
         {
             Passif();
         }

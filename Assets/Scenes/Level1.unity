@@ -1453,6 +1453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   toleft: 1
+  isActif: 0
 --- !u!1 &402330723
 GameObject:
   m_ObjectHideFlags: 0
@@ -2115,7 +2116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toleft: 1
-  speed: 2
+  speed: 0
 --- !u!212 &559972294
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5099,6 +5100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3c13d77bf5b0e45a126ea58db5cb20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flicCam: {fileID: 344851270}
 --- !u!60 &1903697403
 PolygonCollider2D:
   m_ObjectHideFlags: 0
