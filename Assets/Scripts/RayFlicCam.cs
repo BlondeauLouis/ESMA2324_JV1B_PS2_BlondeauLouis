@@ -32,7 +32,7 @@ public class RayFlicCam : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            flicCam.Actif();
+            flicCam.isActif = true;
         }
 
     }
@@ -41,7 +41,7 @@ public class RayFlicCam : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            flicCam.Passif();
+            flicCam.isActif = false;
         }
     }
 }

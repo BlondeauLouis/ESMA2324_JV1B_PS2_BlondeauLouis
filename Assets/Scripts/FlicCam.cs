@@ -11,7 +11,7 @@ public class FlicCam : MonoBehaviour
     private float initialY;
 
     public bool toleft = true;
-    private bool isActif = false;
+    public bool isActif = false;
 
     void Start()
     {
@@ -19,12 +19,19 @@ public class FlicCam : MonoBehaviour
         enemyCollider = GetComponent<Collider2D>();
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        initialY = transform.position.y; // Sauvegarder la position initiale en Y
+        initialY = transform.position.y;
     }
 
     void Update()
     {
-
+        if (isActif == true)
+        {
+            Actif();
+        }
+        else if (isActif == false)
+        {
+            Passif();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -47,7 +54,6 @@ public class FlicCam : MonoBehaviour
 
     public void Actif()
     {
-        isActif = true;
         if (playerController.isInvisible)
         {
             Physics2D.IgnoreCollision(playerController.GetComponent<Collider2D>(), enemyCollider, true);
@@ -76,7 +82,6 @@ public class FlicCam : MonoBehaviour
 
     public void Passif()
     {
-        isActif = false;
         if (toleft)
         {
             rgbd.velocity = new Vector2(-speed, rgbd.velocity.y);
