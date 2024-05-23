@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using System.Collections;
 
 public class Taguer : MonoBehaviour
@@ -8,16 +9,27 @@ public class Taguer : MonoBehaviour
     private PlayerController playerController;
     private Transform platformTransform;
 
+    private Dictionary<string, KeyCode> keyMappings;
+
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
+        
+        keyMappings = new Dictionary<string, KeyCode>
+        {
+            { "MoveLeft", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("MoveLeft", "A")) },
+            { "MoveRight", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("MoveRight", "D")) },
+            { "Jump", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump", "Space")) },
+            { "Tag", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Tag", "E")) },
+            { "Glide", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Glide", "LeftShift")) }
+        };
     }
 
     void Update()
     {
         if (playerController.currentInvisibilityDuration == playerController.maxInvisibilityDuration)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(keyMappings["Tag"]))
             {
                 if (isTouchingWall)
                 {
@@ -30,7 +42,7 @@ public class Taguer : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(keyMappings["Tag"]))
         {
             playerController.isInvisible = false;
             playerController.StopFollowingPlatform();

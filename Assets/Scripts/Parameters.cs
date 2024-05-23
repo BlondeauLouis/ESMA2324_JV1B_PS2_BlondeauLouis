@@ -12,10 +12,13 @@ public class SettingsManager : MonoBehaviour
     public Button moveLeftButton;
     public Button moveRightButton;
     public Button jumpButton;
+    public Button tagButton;
     public Button glideButton;
+
     public Text moveLeftButtonText;
     public Text moveRightButtonText;
     public Text jumpButtonText;
+    public Text tagButtonText;
     public Text glideButtonText;
 
     private string waitingForKey = null;
@@ -53,12 +56,14 @@ public class SettingsManager : MonoBehaviour
             { "MoveLeft", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("MoveLeft", "A")) },
             { "MoveRight", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("MoveRight", "D")) },
             { "Jump", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump", "Space")) },
+            { "Tag" , (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Tag", "E")) },
             { "Glide", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Glide", "LeftShift")) }
         };
 
         moveLeftButtonText.text = keyMappings["MoveLeft"].ToString();
         moveRightButtonText.text = keyMappings["MoveRight"].ToString();
         jumpButtonText.text = keyMappings["Jump"].ToString();
+        tagButtonText.text = keyMappings["Tag"].ToString();
         glideButtonText.text = keyMappings["Glide"].ToString();
 
         // Ajouter des listeners
@@ -70,6 +75,7 @@ public class SettingsManager : MonoBehaviour
         moveLeftButton.onClick.AddListener(() => StartListeningForKey("MoveLeft"));
         moveRightButton.onClick.AddListener(() => StartListeningForKey("MoveRight"));
         jumpButton.onClick.AddListener(() => StartListeningForKey("Jump"));
+        tagButton.onClick.AddListener(() => StartListeningForKey("Tag"));
         glideButton.onClick.AddListener(() => StartListeningForKey("Glide"));
     }
 
@@ -129,6 +135,9 @@ public class SettingsManager : MonoBehaviour
                 break;
             case "Jump":
                 jumpButtonText.text = newKey.ToString();
+                break;
+            case "Tag":
+                tagButtonText.text = newKey.ToString();
                 break;
             case "Glide":
                 glideButtonText.text = newKey.ToString();
