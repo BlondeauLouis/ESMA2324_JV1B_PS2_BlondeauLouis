@@ -3,6 +3,8 @@ using UnityEngine;
 public class FlicCam : MonoBehaviour
 {
     public float speed;
+    private float regularSpeed;
+    private float superSpeed;
     private Rigidbody2D rgbd;
     private Collider2D enemyCollider;
     private PlayerController playerController;
@@ -20,6 +22,8 @@ public class FlicCam : MonoBehaviour
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         initialY = transform.position.y;
+        regularSpeed = speed;
+        superSpeed = speed * 1.5f;
     }
 
     void Update()
@@ -61,6 +65,7 @@ public class FlicCam : MonoBehaviour
         }
         else
         {
+            speed = superSpeed;
             Physics2D.IgnoreCollision(playerController.GetComponent<Collider2D>(), enemyCollider, false);
 
             if (playerTransform != null)
@@ -82,6 +87,7 @@ public class FlicCam : MonoBehaviour
 
     public void Passif()
     {
+        speed = regularSpeed;
         if (toleft)
         {
             rgbd.velocity = new Vector2(-speed, rgbd.velocity.y);
