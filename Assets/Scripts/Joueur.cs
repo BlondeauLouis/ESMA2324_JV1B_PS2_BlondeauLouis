@@ -77,11 +77,11 @@ public class PlayerController : MonoBehaviour
         {
             float moveHorizontal = 0f;
 
-            if (Input.GetKey(keyMappings["MoveLeft"]))
+            if (Input.GetKey(keyMappings["MoveLeft"]))  //BOUGER A GAUCHE
             {
                 moveHorizontal = -1f;
             }
-            else if (Input.GetKey(keyMappings["MoveRight"]))
+            else if (Input.GetKey(keyMappings["MoveRight"]))  //BOUGER A DROITE
             {
                 moveHorizontal = 1f;
             }
