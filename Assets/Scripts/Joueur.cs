@@ -146,6 +146,13 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             GainPv();
         }
+
+        if (collision.gameObject.CompareTag("Life"))
+        {
+            Destroy(collision.gameObject);
+            GameManager.Instance.GainLife();
+            UpdateLivesText();
+        }
     }
 
     public void PerdPv()

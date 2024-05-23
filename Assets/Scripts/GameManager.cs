@@ -29,4 +29,9 @@ public class GameManager : MonoBehaviour
             playerLives = 3;
         }
     }
+
+    public void GainLife()
+    {
+        playerLives++;
+    }
 }
