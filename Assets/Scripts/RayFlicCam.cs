@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RayFlicCam : MonoBehaviour
 {
-    public FlicCam flicCam; // Rendre cette variable publique pour pouvoir l'assigner dans l'inspecteur
+    public FlicCam flicCam;
 
     private PlayerController playerController;
     private Collider2D enemyCollider;
