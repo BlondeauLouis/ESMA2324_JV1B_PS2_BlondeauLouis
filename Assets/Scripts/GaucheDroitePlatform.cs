@@ -42,4 +42,5 @@ public class MovingPlatformGD : MonoBehaviour
         movingToB = !movingToB; // Inverser la direction
         isPaused = false; // Désactiver la pause
     }
+
 }
