@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Ennemi : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class Ennemi : MonoBehaviour
     private Rigidbody2D rgbd;
     private Collider2D enemyCollider;
     private PlayerController playerController; // Référence au script du joueur
+
+    public float pauseDuration = 1.0f; // Durée de la pause en secondes
+    private bool isPaused = false;
 
     void Start()
     {
@@ -17,42 +21,58 @@ public class Ennemi : MonoBehaviour
 
     void Update()
     {
-        if (toleft)
+        if (!isPaused)
         {
-            rgbd.velocity = new Vector2(-speed, rgbd.velocity.y);
-        }
-        else
-        {
-            rgbd.velocity = new Vector2(speed, rgbd.velocity.y);
-        }
+            if (toleft)
+            {
+                rgbd.velocity = new Vector2(-speed, rgbd.velocity.y);
+            }
+            else
+            {
+                rgbd.velocity = new Vector2(speed, rgbd.velocity.y);
+            }
 
-        // Ignorer les collisions avec le joueur si le joueur est invisible
-        if (playerController.isInvisible)
-        {
-            Physics2D.IgnoreCollision(playerController.GetComponent<Collider2D>(), enemyCollider, true);
+            // Ignorer les collisions avec le joueur si le joueur est invisible
+            if (playerController.isInvisible)
+            {
+                Physics2D.IgnoreCollision(playerController.GetComponent<Collider2D>(), enemyCollider, true);
+            }
+            else
+            {
+                Physics2D.IgnoreCollision(playerController.GetComponent<Collider2D>(), enemyCollider, false);
+            }
         }
         else
         {
-            Physics2D.IgnoreCollision(playerController.GetComponent<Collider2D>(), enemyCollider, false);
+            rgbd.velocity = new Vector2(0f, rgbd.velocity.y);
         }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("LeftLimit"))
         {
-            toleft = false;
+            StartCoroutine(PauseAndChangeDirection());
         }
 
         if (other.CompareTag("RightLimit"))
         {
-            toleft = true;
+            StartCoroutine(PauseAndChangeDirection());
         }
 
         if (other.CompareTag("Player"))
         {
             playerController.PerdPv();
         }
+    }
+
+    private IEnumerator PauseAndChangeDirection()
+    {
+        isPaused = true; // Activer la pause
+        yield return new WaitForSeconds(pauseDuration); // Attendre pendant la durée de la pause
+        toleft = !toleft; // Inverser la direction
+        isPaused = false; // Désactiver la pause
     }
 }
 
