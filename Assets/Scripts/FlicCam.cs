@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class FlicCam : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class FlicCam : MonoBehaviour
 
     public bool toleft = true;
     public bool isActif = false;
+
+    public float pauseDuration = 1.0f; // Durée de la pause en secondes
+    private bool isPaused = false;
 
     void Start()
     {
@@ -34,7 +38,14 @@ public class FlicCam : MonoBehaviour
         }
         else
         {
-            Passif();
+            if (!isPaused)
+            {
+                Passif();
+            }
+            else
+            {
+                rgbd.velocity = new Vector2(0f, rgbd.velocity.y);
+            }
         }
     }
 
@@ -42,12 +53,12 @@ public class FlicCam : MonoBehaviour
     {
         if (!isActif && other.CompareTag("LeftLimit"))
         {
-            toleft = false;
+            StartCoroutine(PauseAndChangeDirection());
         }
 
         if (!isActif && other.CompareTag("RightLimit"))
         {
-            toleft = true;
+            StartCoroutine(PauseAndChangeDirection());
         }
 
         if (other.CompareTag("Player"))
@@ -96,5 +107,13 @@ public class FlicCam : MonoBehaviour
         {
             rgbd.velocity = new Vector2(speed, rgbd.velocity.y);
         }
+    }
+
+    private IEnumerator PauseAndChangeDirection()
+    {
+        isPaused = true; // Activer la pause
+        yield return new WaitForSeconds(pauseDuration); // Attendre pendant la durée de la pause
+        toleft = !toleft; // Inverser la direction
+        isPaused = false; // Désactiver la pause
     }
 }
