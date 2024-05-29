@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     private float baseSpeed;
     private float glideSpeed;
+    private float mudSpeed;
 
     public float jump;
     public float health;
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     private bool isGrounded;
+    private bool isInMud = false;
     public bool isInvisible;
 
     public Sprite sp;
@@ -63,6 +65,7 @@ public class PlayerController : MonoBehaviour
         baseColor = spriteRenderer.color;
         baseSpeed = speed;
         glideSpeed = speed * 0.75f;
+        mudSpeed = speed * 0.5f;
 
         UpdateLivesText();
 
@@ -106,7 +109,7 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = 0.4f;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -5f));
         }
-        else 
+        else if (!isInMud)
         { 
             rb.gravityScale = 5f;
             speed = baseSpeed;
@@ -161,6 +164,12 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
         }
+
+        if (collision.gameObject.CompareTag("Mud"))
+        {
+            isInMud = true;
+            speed = mudSpeed;
+        }
     }
 
     void OnCollisionExit2D(Collision2D collision)
@@ -168,6 +177,12 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
+        }
+
+        if (collision.gameObject.CompareTag("Mud"))
+        {
+            isInMud = false;
+            speed = baseSpeed;
         }
     }
 
