@@ -9,16 +9,22 @@ public class Thwomp : MonoBehaviour
 
     public Transform spawn;
     public float resetTime = 2f;
-
-    private Vector2 originalPosition;
+    public GameObject thwompRange;
+    public float fallSpeedMultiplier = 2f;
 
     private PlayerController playerController;
+
+    private float originalGravityScale;
+
+    private Vector2 originalPosition;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
         originalPosition = transform.position;
+        originalPosition = transform.position;
+        originalGravityScale = rb.gravityScale;
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
@@ -33,6 +39,7 @@ public class Thwomp : MonoBehaviour
     void Tomber()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.gravityScale = originalGravityScale * fallSpeedMultiplier;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -41,7 +48,6 @@ public class Thwomp : MonoBehaviour
         {
             StartCoroutine(ResetThwomp());
         }
-
         if (collision.gameObject.CompareTag("Player"))
         {
             playerController.PerdPv();
@@ -52,8 +58,13 @@ public class Thwomp : MonoBehaviour
     {
         yield return new WaitForSeconds(resetTime);
         rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.gravityScale = originalGravityScale;
         transform.position = originalPosition;
         rb.velocity = Vector2.zero;
         isActif = false;
+        if (thwompRange != null)
+        {
+            thwompRange.SetActive(true);
+        }
     }
 }

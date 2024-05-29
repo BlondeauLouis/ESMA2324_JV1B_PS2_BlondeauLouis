@@ -21,6 +21,10 @@ public class ThwompRange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (thwompScript.isActif == true)
+        {
+            gameObject.SetActive(false);
+        }
 
     }
 
@@ -29,7 +33,6 @@ public class ThwompRange : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             thwompScript.isActif = true;
-            gameObject.SetActive(false);
         }
     }
 }
