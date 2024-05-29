@@ -43,11 +43,13 @@ public class Rat : MonoBehaviour
     {
         if (other.CompareTag("LeftLimit"))
         {
+            Debug.Log("LeftLimit touchée");
             toleft = false;
         }
 
         if (other.CompareTag("RightLimit"))
         {
+            Debug.Log("RightLimit touchée");
             toleft = true;
         }
 
