@@ -766,16 +766,16 @@ MonoBehaviour:
   speed: 15
   jump: 20
   health: 3
-  invisibilityGauge: {fileID: 0}
+  invisibilityGauge: {fileID: 1972865971}
   maxInvisibilityDuration: 5
   currentInvisibilityDuration: 0
   invisibilityRechargeRate: 1
   glideForce: 1.5
-  livesText: {fileID: 0}
+  livesText: {fileID: 1151627794}
   invincibilityTime: 2
   isInvisible: 0
   sp: {fileID: 0}
-  respawn: {fileID: 0}
+  respawn: {fileID: 960307279}
 --- !u!50 &608184043
 Rigidbody2D:
   serializedVersion: 4
@@ -2441,7 +2441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b775f8d9d767c5344a5d1b434ea954ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenuUI: {fileID: 0}
+  pauseMenuUI: {fileID: 1204412286}
 --- !u!4 &1901772243
 Transform:
   m_ObjectHideFlags: 0
@@ -2546,7 +2546,7 @@ GameObject:
   - component: {fileID: 2005241003}
   m_Layer: 0
   m_Name: Trou
-  m_TagString: Untagged
+  m_TagString: Hole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
