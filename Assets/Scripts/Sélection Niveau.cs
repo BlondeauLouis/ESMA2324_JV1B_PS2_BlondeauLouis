@@ -82,7 +82,7 @@ public class LevelSelector : MonoBehaviour
     void SelectLevel()
     {
         // Charger la scène du niveau sélectionné
-        SceneManager.LoadScene("Level" + (currentLevelIndex + 1));
+        SceneManager.LoadScene("ILevel" + (currentLevelIndex + 1));
     }
 
     void UpdateLevelVisuals()
