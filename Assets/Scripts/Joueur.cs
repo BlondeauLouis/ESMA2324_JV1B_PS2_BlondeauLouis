@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     private bool isInMud = false;
     public bool isInvisible;
 
-    public Sprite sp;
+    public Sprite walk1, walk2;
     public Transform respawn;
 
     private bool isFollowingPlatform = false;
@@ -88,10 +88,18 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(keyMappings["MoveLeft"]))  //BOUGER A GAUCHE
             {
                 moveHorizontal = -1f;
+                if (!spriteRenderer.flipX)
+                {
+                    spriteRenderer.flipX = true;
+                }
             }
             else if (Input.GetKey(keyMappings["MoveRight"]))  //BOUGER A DROITE
             {
                 moveHorizontal = 1f;
+                if (spriteRenderer.flipX)
+                {
+                    spriteRenderer.flipX = false;
+                }
             }
 
             Vector3 direction = new Vector2(moveHorizontal, 0);
