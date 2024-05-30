@@ -281,7 +281,7 @@ public class PlayerController : MonoBehaviour
     {
         if (livesText != null)
         {
-            livesText.text = "Lives: " + GameManager.Instance.playerLives.ToString();
+            livesText.text = GameManager.Instance.playerLives.ToString();
         }
     }
 }

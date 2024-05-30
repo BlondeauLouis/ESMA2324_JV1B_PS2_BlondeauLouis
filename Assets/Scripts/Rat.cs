@@ -8,22 +8,32 @@ public class Rat : MonoBehaviour
     private Rigidbody2D rgbd;
     private Collider2D enemyCollider;
     private PlayerController playerController;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
         rgbd = GetComponent<Rigidbody2D>();
         enemyCollider = GetComponent<Collider2D>();
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>(); // Obtenez la référence au script du joueur
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
         if (toleft)
         {
+            if (!spriteRenderer.flipX)
+            {
+                spriteRenderer.flipX = true;
+            }
             rgbd.velocity = new Vector2(-speed, rgbd.velocity.y);
         }
         else
         {
+            if (spriteRenderer.flipX)
+            {
+                spriteRenderer.flipX = false;
+            }
             rgbd.velocity = new Vector2(speed, rgbd.velocity.y);
         }
 
