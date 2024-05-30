@@ -17,7 +17,7 @@ public class FinLevel : MonoBehaviour
         {
             GameObject LevelsUnlocked = GameObject.FindWithTag("LevelsUnlocked");
             LevelsUnlocked.SendMessage("LevelCompleted");
-            SceneManager.LoadScene("Choix Niveau");
+            SceneManager.LoadScene("StageCleared");
         }
     }
 }
