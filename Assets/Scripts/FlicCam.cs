@@ -11,6 +11,8 @@ public class FlicCam : MonoBehaviour
     private PlayerController playerController;
 
     private Transform playerTransform;
+    private Transform selfTransform;
+    private SpriteRenderer spriteRenderer;
     private float initialY;
 
     public bool toleft = true;
@@ -22,7 +24,9 @@ public class FlicCam : MonoBehaviour
     void Start()
     {
         rgbd = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         enemyCollider = GetComponent<Collider2D>();
+        selfTransform = GetComponent<Transform>();
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         initialY = transform.position.y;
@@ -81,9 +85,25 @@ public class FlicCam : MonoBehaviour
 
             if (playerTransform != null)
             {
+                if (playerTransform.position.x < selfTransform.position.x)
+                {
+                    if (!spriteRenderer.flipX)
+                    {
+                        spriteRenderer.flipX = true;
+                    }
+                }
+                else
+                {
+                    if (spriteRenderer.flipX)
+                    {
+                        spriteRenderer.flipX = false;
+                    }
+                }
+
                 Vector2 direction = (playerTransform.position - transform.position).normalized;
                 direction.y = 0;
                 rgbd.velocity = direction * speed;
+
             }
             else
             {
@@ -102,10 +122,18 @@ public class FlicCam : MonoBehaviour
         if (toleft)
         {
             rgbd.velocity = new Vector2(-speed, rgbd.velocity.y);
+            if (!spriteRenderer.flipX)
+            {
+                spriteRenderer.flipX = true;
+            }
         }
         else
         {
             rgbd.velocity = new Vector2(speed, rgbd.velocity.y);
+            if (spriteRenderer.flipX)
+            {
+                spriteRenderer.flipX = false;
+            }
         }
     }
 
