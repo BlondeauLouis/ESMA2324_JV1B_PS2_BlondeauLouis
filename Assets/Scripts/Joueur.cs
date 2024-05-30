@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private Color baseColor;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
 
     private bool isGrounded;
     private bool isInMud = false;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         currentInvisibilityDuration = maxInvisibilityDuration;
         baseColor = spriteRenderer.color;
         baseSpeed = speed;
@@ -100,6 +102,15 @@ public class PlayerController : MonoBehaviour
                 {
                     spriteRenderer.flipX = false;
                 }
+            }
+
+            if (moveHorizontal != 0)
+            {
+                animator.Play("Walk");
+            }
+            else
+            {
+                animator.Play("Stay");
             }
 
             Vector3 direction = new Vector2(moveHorizontal, 0);
