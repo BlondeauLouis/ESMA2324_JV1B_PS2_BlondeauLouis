@@ -141,6 +141,7 @@ public class PlayerController : MonoBehaviour
         if (isInvisible)
         {
             spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
+            animator.Play("Tag");
             currentInvisibilityDuration -= Time.deltaTime;
             if (currentInvisibilityDuration <= 0)
             {
