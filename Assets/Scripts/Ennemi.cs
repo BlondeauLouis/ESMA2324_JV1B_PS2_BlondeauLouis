@@ -8,6 +8,7 @@ public class Ennemi : MonoBehaviour
     private Rigidbody2D rgbd;
     private Collider2D enemyCollider;
     private PlayerController playerController; // Référence au script du joueur
+    private SpriteRenderer spriteRenderer;
 
     public float pauseDuration = 1.0f; // Durée de la pause en secondes
     private bool isPaused = false;
@@ -17,6 +18,7 @@ public class Ennemi : MonoBehaviour
         rgbd = GetComponent<Rigidbody2D>();
         enemyCollider = GetComponent<Collider2D>();
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>(); // Obtenez la référence au script du joueur
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -26,10 +28,18 @@ public class Ennemi : MonoBehaviour
             if (toleft)
             {
                 rgbd.velocity = new Vector2(-speed, rgbd.velocity.y);
+                if (!spriteRenderer.flipX)
+                {
+                    spriteRenderer.flipX = true;
+                }
             }
             else
             {
                 rgbd.velocity = new Vector2(speed, rgbd.velocity.y);
+                if (spriteRenderer.flipX)
+                {
+                    spriteRenderer.flipX = false;
+                }
             }
 
             // Ignorer les collisions avec le joueur si le joueur est invisible
