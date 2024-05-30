@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
         if (!isInvisible)
         {
             float moveHorizontal = 0f;
@@ -252,6 +253,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator InvincibilityRoutine()
     {
         isInvincible = true;
+        animator.Play("Touched");
         yield return new WaitForSeconds(invincibilityTime);
         isInvincible = false;
     }
@@ -284,4 +286,3 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
-
