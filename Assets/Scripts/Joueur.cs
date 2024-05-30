@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     private bool isInMud = false;
     public bool isInvisible;
 
-    public Sprite walk1, walk2;
+    public Sprite walk1, walk2, jumpSprite;
     public Transform respawn;
 
     private bool isFollowingPlatform = false;
@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (moveHorizontal != 0)
+            if (moveHorizontal != 0 && isGrounded)
             {
                 animator.Play("Walk");
             }
@@ -120,6 +120,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && Input.GetKeyDown(keyMappings["Jump"]) && !isInvisible)    //SAUTER
         {
             rb.velocity = new Vector2(rb.velocity.x, jump);
+            spriteRenderer.sprite = jumpSprite;
         }
 
         if (!isGrounded && Input.GetKey(keyMappings["Glide"]) && rb.velocity.y < 0)     //PLANER
@@ -127,6 +128,7 @@ public class PlayerController : MonoBehaviour
             speed = glideSpeed;
             rb.gravityScale = 0.4f;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -5f));
+            animator.Play("Glide");
         }
         else if (!isInMud)
         { 
