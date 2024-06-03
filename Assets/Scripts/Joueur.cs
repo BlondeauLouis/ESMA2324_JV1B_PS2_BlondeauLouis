@@ -109,6 +109,10 @@ public class PlayerController : MonoBehaviour
             {
                 animator.Play("Walk");
             }
+            else if (moveHorizontal != 0 && isInMud)
+            {
+                animator.Play("Walk_slow");
+            }
             else
             {
                 animator.Play("Stay");
