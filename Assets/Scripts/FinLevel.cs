@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class FinLevel : MonoBehaviour
 {
+    public float transitionDelay = 2f;
 
     void Start()
     {
@@ -15,9 +16,25 @@ public class FinLevel : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            GameObject LevelsUnlocked = GameObject.FindWithTag("LevelsUnlocked");
-            LevelsUnlocked.SendMessage("LevelCompleted");
-            SceneManager.LoadScene("StageCleared");
+            StartCoroutine(End());
         }
+    }
+
+    void QuitLevel()
+    {
+        GameObject LevelsUnlocked = GameObject.FindWithTag("LevelsUnlocked");
+        LevelsUnlocked.SendMessage("LevelCompleted");
+        SceneManager.LoadScene("StageCleared");
+    }
+
+    IEnumerator End()
+    {
+        float t = 0f;
+        while (t < 1)
+        {
+            t += Time.deltaTime / transitionDelay;
+            yield return null;
+        }
+        QuitLevel();
     }
 }
