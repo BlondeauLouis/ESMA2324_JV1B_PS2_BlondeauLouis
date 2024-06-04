@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool isInMud = false;
     public bool isInvisible;
+    private bool hasFinished = false;
 
     public Sprite walk1, walk2, jumpSprite;
     public Transform respawn;
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        if (!isInvisible)
+        if (!isInvisible && !hasFinished)
         {
             float moveHorizontal = 0f;
 
@@ -122,13 +123,13 @@ public class PlayerController : MonoBehaviour
             transform.Translate(direction * speed * Time.deltaTime);
         }
 
-        if (isGrounded && Input.GetKeyDown(keyMappings["Jump"]) && !isInvisible)    //SAUTER
+        if (isGrounded && Input.GetKeyDown(keyMappings["Jump"]) && !isInvisible && !hasFinished)    //SAUTER
         {
             rb.velocity = new Vector2(rb.velocity.x, jump);
             spriteRenderer.sprite = jumpSprite;
         }
 
-        if (!isGrounded && Input.GetKey(keyMappings["Glide"]) && rb.velocity.y < 0)     //PLANER
+        if (!isGrounded && Input.GetKey(keyMappings["Glide"]) && rb.velocity.y < 0 && !hasFinished)     //PLANER
         {
             speed = glideSpeed;
             rb.gravityScale = 0.4f;
@@ -226,6 +227,12 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             GameManager.Instance.GainLife();
             UpdateLivesText();
+        }
+
+        if (collision.gameObject.CompareTag("Finish"))
+        {
+            hasFinished = true;
+            animator.Play("End_level");
         }
     }
 
