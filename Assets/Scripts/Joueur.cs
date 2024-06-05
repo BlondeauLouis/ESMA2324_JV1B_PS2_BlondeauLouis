@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(isGrounded);
 
         if (!isInvisible && !hasFinished)
         {
@@ -233,6 +234,11 @@ public class PlayerController : MonoBehaviour
         {
             hasFinished = true;
             animator.Play("End_level");
+        }
+
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
         }
     }
 
