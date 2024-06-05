@@ -14,16 +14,21 @@ public class LevelSelector : MonoBehaviour
     private bool[] levelUnlocked;  // Tableau pour savoir quels niveaux sont déverrouillés
     private LevelsUnlocked levelsUnlocked;
 
+    private Animator animator;
+
     void Start()
     {
         // Trouver l'objet LevelsUnlocked dans la scène
         levelsUnlocked = FindObjectOfType<LevelsUnlocked>();
+        animator = GetComponent<Animator>();
 
         if (levelsUnlocked == null)
         {
             Debug.LogError("LevelsUnlocked object not found in the scene.");
             return;
         }
+
+        animator.Play("LevelSelector");
 
         // Mettre à jour les niveaux déverrouillés en fonction des données de LevelsUnlocked
         UpdateUnlockedLevels();
