@@ -1643,7 +1643,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24067698467cc7b45ab56a72dc68be5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxSpeed: 0.1
+  target: {fileID: 0}
+  smoothing: 0
+  level: 0
 --- !u!212 &498860269
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2438,7 +2440,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24067698467cc7b45ab56a72dc68be5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxSpeed: 0.1
+  target: {fileID: 0}
+  smoothing: 0.5
+  level: 10
 --- !u!212 &701739511
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6823,7 +6827,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24067698467cc7b45ab56a72dc68be5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxSpeed: 0.1
+  target: {fileID: 0}
+  smoothing: 0
+  level: 0
 --- !u!212 &1906507509
 SpriteRenderer:
   m_ObjectHideFlags: 0
