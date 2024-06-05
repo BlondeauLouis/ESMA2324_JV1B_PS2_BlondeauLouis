@@ -84,8 +84,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(isGrounded);
-
         if (!isInvisible && !hasFinished)
         {
             float moveHorizontal = 0f;
