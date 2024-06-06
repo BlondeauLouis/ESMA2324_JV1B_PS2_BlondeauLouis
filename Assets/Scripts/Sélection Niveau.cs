@@ -43,6 +43,8 @@ public class LevelSelector : MonoBehaviour
     void Update()
     {
         levelsUnlocked = FindObjectOfType<LevelsUnlocked>();
+        UpdateUnlockedLevels();
+        UpdateLevelVisuals();
         // Déplacement du curseur avec les touches gauche et droite
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
