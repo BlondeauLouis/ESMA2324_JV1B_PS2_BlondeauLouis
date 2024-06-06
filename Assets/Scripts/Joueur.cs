@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool isInMud = false;
     public bool isInvisible;
+    private bool isGliding = false;
     private bool hasFinished = false;
 
     public Sprite walk1, walk2, jumpSprite;
@@ -140,7 +141,16 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = 0.4f;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -5f));
             animator.Play("Glide");
+            if (!isGliding)
+            {
+                StartCoroutine(HelicopterSound());
+            }
         }
+        else if (isGliding)
+        {
+            StopPlayingHelicopter();
+        }
+
         else if (!isInMud)
         { 
             rb.gravityScale = 5f;
@@ -321,6 +331,26 @@ public class PlayerController : MonoBehaviour
     {
         audioSource.PlayOneShot(spray, 0.3f);
         yield return new WaitForSeconds(duration);
+        audioSource.Stop();
+    }
+
+    private IEnumerator HelicopterSound()
+    {
+        isGliding = true;
+        audioSource.loop = true;
+        audioSource.clip = helicopter;
+        audioSource.Play();
+        while (Input.GetKey(keyMappings["Glide"]))
+        {
+            yield return null;
+        }
+
+        StopPlayingHelicopter();
+    }
+
+    private void StopPlayingHelicopter()
+    {
+        isGliding = false;
         audioSource.Stop();
     }
 }

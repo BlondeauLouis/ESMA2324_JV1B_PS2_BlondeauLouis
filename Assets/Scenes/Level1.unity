@@ -12741,6 +12741,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 801087565}
     - target: {fileID: 3865395006580882596, guid: df484cacb8232f847947e77402d1e868, type: 3}
+      propertyPath: helicopter
+      value: 
+      objectReference: {fileID: 8300000, guid: 43f810af5accca541ac985ef7d452051, type: 3}
+    - target: {fileID: 3865395006580882596, guid: df484cacb8232f847947e77402d1e868, type: 3}
       propertyPath: jumpSprite
       value: 
       objectReference: {fileID: 21300000, guid: f985629da9e8f934d9dad8e15d11dd23, type: 3}
