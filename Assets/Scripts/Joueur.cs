@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
+    public AudioClip spray;
+    AudioSource audioSource;
+
     private bool isGrounded;
     private bool isInMud = false;
     public bool isInvisible;
@@ -64,6 +67,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         currentInvisibilityDuration = maxInvisibilityDuration;
         baseColor = spriteRenderer.color;
         baseSpeed = speed;
@@ -145,6 +149,7 @@ public class PlayerController : MonoBehaviour
 
         if (isInvisible)
         {
+            StartCoroutine(SpraySound(1f));
             spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
             animator.Play("Tag");
             currentInvisibilityDuration -= Time.deltaTime;
@@ -232,6 +237,7 @@ public class PlayerController : MonoBehaviour
         {
             hasFinished = true;
             animator.Play("End_level");
+            StartCoroutine(SpraySound(2f));
         }
 
         if (collision.gameObject.CompareTag("Ground"))
@@ -306,5 +312,12 @@ public class PlayerController : MonoBehaviour
         {
             livesText.text = GameManager.Instance.playerLives.ToString();
         }
+    }
+
+    private IEnumerator SpraySound(float duration)
+    {
+        audioSource.PlayOneShot(spray, 0.3f);
+        yield return new WaitForSeconds(duration);
+        audioSource.Stop();
     }
 }
