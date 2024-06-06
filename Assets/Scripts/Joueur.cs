@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
     public AudioClip spray;
+    public AudioClip damage;
+    public AudioClip helicopter;
     AudioSource audioSource;
 
     private bool isGrounded;
@@ -259,6 +261,7 @@ public class PlayerController : MonoBehaviour
         if (!isInvincible)
         {
             health--;
+            audioSource.PlayOneShot(damage, 5f);
             StartCoroutine(InvincibilityRoutine());
         }
     }
