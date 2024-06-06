@@ -10717,6 +10717,10 @@ PrefabInstance:
       value: Joueur
       objectReference: {fileID: 0}
     - target: {fileID: 3878109128545523488, guid: 340f4ca930c1a5749821bd7321af5859, type: 3}
+      propertyPath: bonk
+      value: 
+      objectReference: {fileID: 8300000, guid: 9494c9b730c850b4f9bece621235e6f9, type: 3}
+    - target: {fileID: 3878109128545523488, guid: 340f4ca930c1a5749821bd7321af5859, type: 3}
       propertyPath: respawn
       value: 
       objectReference: {fileID: 452194028}

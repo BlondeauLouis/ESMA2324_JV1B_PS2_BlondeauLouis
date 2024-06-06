@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip spray;
     public AudioClip damage;
     public AudioClip helicopter;
+    public AudioClip bonk;
     AudioSource audioSource;
 
     private bool isGrounded;
@@ -289,6 +290,7 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.LoseLife();
         transform.position = respawn.position;
         health = 3;
+        audioSource.PlayOneShot(bonk, 5f);
         UpdateLivesText();
     }
 
